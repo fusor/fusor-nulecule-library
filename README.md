@@ -5,9 +5,9 @@ Instructions
 ------------
 1. Clone the this repo onto your OSE host
 2. docker build miq-memcached-atomicapp
-3. docker tag <hash> miq-memcached-atomicapp
+3. docker tag {hash} miq-memcached-atomicapp
 4. docker build miq-postgresql-atomicapp
-5. docker tag <hash> miq-postgresql-atomicapp
+5. docker tag {hash} miq-postgresql-atomicapp
 6. copy miq-app-atomicapp/answers.conf.gen to miq-app-atomicapp/answers.conf
 7. Edit any values you want to change. The db must be named vmdb_production
 8. Ensure you have two 2Gi pv's. oc get pv's to inspect. If necessary: oc create -f extras/pv01i.yaml; oc create -f extras/pv02.yaml

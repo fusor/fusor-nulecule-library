@@ -11,7 +11,7 @@ Instructions
 6. Edit any values you want to change in miq-app-atomicapp/answers.conf. The db must be named vmdb_production
 7. Ensure you have two 2Gi pv's. oc get pv's to inspect. If necessary: oc create -f extras/pv01.yaml; oc create -f extras/pv02.yaml
 8. For whatever project you choose to use you must give the user privileges to run the miq-app pod
-* Using the miq namespace in the answers file as an example: oadm policy add-scc-to-user privileged system:serviceaccount:miq:default
+  * Using the miq namespace in the answers file as an example: oadm policy add-scc-to-user privileged system:serviceaccount:miq:default
 9. atomicapp run miq-app-appliance
 10. oc create -f extras/miq-route.yaml
 

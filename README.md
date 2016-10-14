@@ -18,9 +18,9 @@ Instructions
 
 Example first deployment
 -------------------------
-...oc login
-...oc new-project miq
-...oadm policy add-scc-to-user privileged system:serviceaccount:miq:default
+oc login  
+oc new-project miq  
+oadm policy add-scc-to-user privileged system:serviceaccount:miq:default  
 
 oc delete pv pv01; oc delete pv pv02; rm -rf /nfsvolumes/pv0{1,2}; mkdir /nfsvolumes/pv0{1,2}; chmod 777 /nfsvolumes/pv0{1,2}; chown -R nfsnobody:nfsnobody /nfsvolumes/pv0{1,2}; oc create -f extras/pv01.yaml; oc create -f extras/pv02.yaml; oc delete project miq; while oc get pods | grep -q NAME ; do echo "still deleting. sleeping 2 seconds"; sleep 2; done; sleep 10; oc new-project miq; sleep 3; atomicapp run miq-app-atomicapp; oc create -f extras/miq-route.yaml
 

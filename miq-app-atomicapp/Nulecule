@@ -26,7 +26,7 @@ graph:
         description: Database Password
       - name: APPLICATION_INIT_DELAY
         description: delay
-        default: 30
+        default: 120
       - name: DATABASE_SERVICE_NAME
         description: Database Service Name
         default: miq-postgresql

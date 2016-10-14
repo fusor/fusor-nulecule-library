@@ -1,0 +1,46 @@
+---
+specversion: 0.0.2
+id: miq-app-atomicapp
+
+metadata:
+  name: MIQ Atomic App
+  appversion: 1.0.0
+  description: The MIQ App
+  location: docker.io/fbladilo/miq-app
+
+params:
+    - name: provider
+      description: The specified default provider.
+      default: openshift
+
+graph:
+  - name: miq-memcached-atomicapp
+    source: docker://miq-memcached-atomicapp
+  - name: miq-postgresql-atomicapp
+    source: docker://miq-postgresql-atomicapp
+  - name: miq-app
+    params:
+      - name: POSTGRESQL_USER
+        description: Database User
+      - name: POSTGRESQL_PASSWORD
+        description: Database Password
+      - name: APPLICATION_INIT_DELAY
+        description: delay
+        default: 30
+      - name: DATABASE_SERVICE_NAME
+        description: Database Service Name
+        default: miq-postgresql
+      - name: DATABASE_REGION
+        description: Region
+        default: 1
+      - name: POSTGRESQL_DATABASE
+        description: Database Name
+        default: vmdb_production
+      - name: MEMCACHED_SERVICE_NAME
+        description: Memcached Service Name
+        default: miq-memcached
+    artifacts:
+      openshift:
+        - file://artifacts/openshift/pod.yaml
+        - file://artifacts/openshift/service.yaml
+        - file://artifacts/openshift/volume.yaml

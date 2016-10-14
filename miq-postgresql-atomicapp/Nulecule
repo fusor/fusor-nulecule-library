@@ -1,0 +1,29 @@
+---
+specversion: 0.0.2
+id: miq-postgresql-atomicapp
+
+metadata:
+  name: MIQ PostgreSQL Atomic App
+  appversion: 1.0.0
+  description: This is PostgreSQL for MIQ
+  location: docker.io/fbladilo/miq-postgresql
+
+params:
+    - name: provider
+      description: The specified default provider.
+      default: openshift
+
+graph:
+  - name: miq-postgresql
+    params:
+      - name: POSTGRESQL_USER
+        description: Database User
+      - name: POSTGRESQL_PASSWORD
+        description: Database Password
+      - name: POSTGRESQL_DATABASE
+        description: Database Name
+    artifacts:
+      openshift:
+        - file://artifacts/openshift/pod.yaml
+        - file://artifacts/openshift/service.yaml
+        - file://artifacts/openshift/volume.yaml

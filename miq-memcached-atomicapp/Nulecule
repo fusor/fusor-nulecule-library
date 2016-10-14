@@ -1,0 +1,28 @@
+---
+specversion: 0.0.2
+id: miq-memcached-atomicapp
+
+metadata:
+  name: MIQ PostgreSQL Atomic App
+  appversion: 1.0.0
+  description: This is PostgreSQL for MIQ
+  location: docker.io/fbladilo/miq-memcached
+
+params:
+    - name: provider
+      description: The specified default provider.
+      default: openshift
+
+graph:
+  - name: miq-memcached
+    params:
+      - name: MEMCACHED_MAX_MEMORY
+        description: Memcached max memory
+      - name: MEMCACHED_MAX_CONNECTIONS
+        description: Memcached Max Connections
+      - name: MEMCACHED_SLAB_PAGE_SIZE
+        description: Memcached Slab Page Size
+    artifacts:
+      openshift:
+        - file://artifacts/openshift/pod.yaml
+        - file://artifacts/openshift/service.yaml

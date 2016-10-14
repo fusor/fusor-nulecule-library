@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: miq-app
+  labels:
+    name: miq-app
+spec:
+  containers:
+    - image: docker.io/fbladilo/miq-app
+      name: miq-app
+      env:
+        - name: POSTGRESQL_USER
+          value: $POSTGRESQL_USER
+        - name: POSTGRESQL_PASSWORD
+          value: $POSTGRESQL_PASSWORD
+        - name: POSTGRESQL_DATABASE
+          value: $POSTGRESQL_DATABASE
+        - name: APPLICATION_INIT_DELAY
+          value: '$APPLICATION_INIT_DELAY'
+        - name: MIQ_POSTGRESQL_SERVICE_HOST
+          value: $DATABASE_SERVICE_NAME
+        - name: DATABASE_REGION
+          value: '$DATABASE_REGION'
+        - name: MIQ_MEMCACHED_SERVICE_HOST
+          value: $MEMCACHED_SERVICE_NAME
+        - name: MIQ_MEMCACHED_PORT
+          value: tcp://$MEMCACHED_SERVICE_NAME:11211
+        - name: MIQ_MEMCACHED_PORT_11211_TCP
+          value: tcp://$MEMCACHED_SERVICE_NAME:11211
+        - name: MIQ_MEMCACHED_PORT_11211_TCP_ADDR
+          value: $MEMCACHED_SERVICE_NAME
+        - name: MIQ_POSTGRESQL_PORT
+          value: tcp://$DATABASE_SERVICE_NAME:5432
+        - name: MIQ_POSTGRESQL_PORT_5432_TCP
+          value: tcp://$DATABASE_SERVICE_NAME:5432
+        - name: MIQ_POSTGRESQL_PORT_5432_TCP_ADDR
+          value: $DATABASE_SERVICE_NAME
+        - name: DATABASE_SERVICE_NAME
+          value: $DATABASE_SERVICE_NAME
+        - name: MEMCACHED_SERVICE_NAME
+          value: $MEMCACHED_SERVICE_NAME
+      ports:
+        - containerPort: 80
+          name: miq-app-http
+        - containerPort: 443
+          name: miq-app-ssl
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: miq-app-persistent-storage
+          mountPath: /persistent
+  volumes:
+    - name: miq-app-persistent-storage
+      persistentVolumeClaim:
+       claimName: miq-app-claim

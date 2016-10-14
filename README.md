@@ -3,7 +3,7 @@ Fusor Nulecule Library
 
 Instructions
 ------------
-1. Clone the this repo onto your OSE host
+1. One your ose host: git clone https://github.com/fusor/fusor-nulecule-library; cd fusor-nulecule-library
 2. docker build miq-memcached-atomicapp
 3. docker tag {hash} miq-memcached-atomicapp
 4. docker build miq-postgresql-atomicapp

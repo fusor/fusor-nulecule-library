@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: mmattermost
+spec:
+  port:
+    targetPort: mattermost
+#  tls:
+#    termination: passthrough
+  to:
+    kind: Service
+    name: mattermost

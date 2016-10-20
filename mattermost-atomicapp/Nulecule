@@ -1,0 +1,36 @@
+---
+specversion: 0.0.2
+id: mattermost-atomicapp
+
+metadata:
+  name: Mattermost Atomic App
+  appversion: 1.0.0
+  description: The Mattermost App
+  location: mattermost
+
+params:
+    - name: provider
+      description: The specified default provider.
+      default: openshift
+
+graph:
+  - name: mariadb-fedora-atomicapp
+    source: docker://mariadb-fedora-atomicapp
+  - name: mattermost
+    params:
+      - name: DRIVER_NAME
+        description: database driver name
+        default: mysql
+      - name: DATABASE_SERVICE_NAME
+        description: database service name
+        default: mariadb
+      - name: MYSQL_USER
+        description: Database User
+      - name: MYSQL_PASSWORD
+        description: Database Password
+      - name: MYSQL_DATABASE
+        description: Database name
+    artifacts:
+      openshift:
+        - file://artifacts/openshift/pod.yaml
+        - file://artifacts/openshift/service.yaml
